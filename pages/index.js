@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <div className="">
       <Head>
-        <title>`${session?.user?.username} Todo List`</title>
+        <title>{`${session?.user?.username} Todo List`}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>

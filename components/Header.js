@@ -12,7 +12,7 @@ function Header() {
         <header className='flex items-center py-3 justify-between bg-gray-100 sticky z-50'>
             <p className='pl-4 text-2xl font-semibold pr-11 text-gray-700'>Todo List</p>
 
-            <div className='hidden md:flex flex-grow items-center border border-gray-200 rounded-lg shadow-sm px-5 py-2 hover:shadow-md'>
+            <div className='hidden sm:flex flex-grow items-center border border-gray-200 rounded-lg shadow-sm px-5 py-2 hover:shadow-md'>
                 <input value={input} onChange={(e) => setInput(e.target.value)} className='flex-grow outline-none' placeholder='Search My Todos...' />
                 <SearchIcon className='h-7 w-7 p-1 rounded-full bg-green-500 text-gray-700 cursor-pointer hover:animate-bounce' />
             </div>

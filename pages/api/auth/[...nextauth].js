@@ -6,40 +6,35 @@ import { db } from '../../../firebase'
 export default NextAuth({
   providers: [
     Providers.Credentials({
-        credentials: {
-          username: { label: "Username", type: "text", placeholder: "" },
-          password: {  label: "Password", type: "password",placeholder: "" }
-        },
-        async authorize(credentials, req) {
+      credentials: {
+        username: { label: "Username", type: "text", placeholder: "" },
+        password: { label: "Password", type: "password", placeholder: "" }
+      },
+      async authorize(credentials, req) {
         const snapshot = await db.collection('users').where('username', '==', credentials.username).where('password', '==', credentials.password).get()
         
-          if (true) {
-            if (!snapshot.empty) {
-              const user = {
-                ...snapshot.docs[0].data(),
-                id: snapshot.docs[0].id,
-              }
+        if (!snapshot.empty) {
+          const user = {
+            ...snapshot.docs[0].data(),
+            id: snapshot.docs[0].id,
+          }
           return user
-            }
-            else {
-              db.collection('users').add({
-                username: credentials.username,
-                password: credentials.password,
-              })
-              const snapshot = await db.collection('users').where('username', '==', credentials.username).where('password', '==', credentials.password).get()
-              const user = {
-                ...snapshot.docs[0].data(),
-                id: snapshot.docs[0].id,
-              }
-          return user
-            }
-          
         }
+            
         else {
-          false
+          db.collection('users').add({
+            username: credentials.username,
+            password: credentials.password,
+          })
+          const snapshot = await db.collection('users').where('username', '==', credentials.username).where('password', '==', credentials.password).get()
+          const user = {
+            ...snapshot.docs[0].data(),
+            id: snapshot.docs[0].id,
+          }
+          return user
         }
-    }
-      })
+      }
+    })
   ],
   adapter: FirebaseAdapter(db),
   session: {
